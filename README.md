@@ -6,7 +6,7 @@
 > Clone/Download the source code
 
 ```bash
-$ git clone  https://github.com/app-generator/react-flask-authentication.git
+$ git clone  https://github.com/iVampy/BackendDev.git
 ```
 
 <br />

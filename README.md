@@ -46,3 +46,19 @@ $
 $ # Start for development (LIVE Reload)
 $ yarn start 
 ```
+
+.. file structure ::
+📦BackendDev
+ ┣ 📂backend
+ ┃ ┣ 📜app.py
+ ┃ ┣ 📜models.py
+ ┃ ┣ 📜routes.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂frontend
+ ┃ ┗ 📂build
+ ┣ 📜.env
+ ┣ 📜config.py
+ ┣ 📜Procfile
+ ┣ 📜README.md
+ ┣ 📜requirements.txt
+ ┗ 📜wsgi.py

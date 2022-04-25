@@ -47,7 +47,8 @@ $ # Start for development (LIVE Reload)
 $ yarn start 
 ```
 
-.. file structure ::
+### file structure
+```bash
 📦BackendDev
  ┣ 📂backend
  ┃ ┣ 📜app.py
@@ -62,3 +63,4 @@ $ yarn start
  ┣ 📜README.md
  ┣ 📜requirements.txt
  ┗ 📜wsgi.py
+ ```

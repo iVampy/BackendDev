@@ -1,8 +1,9 @@
 """Database models."""
-from . import db
+from . import db, ma
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     #__tablename__ = 'users_accounts'
     id = db.Column(db.Integer, primary_key = True)
     first_name = db.Column(db.String(80), nullable=False)
@@ -18,6 +19,10 @@ class User(db.Model):
         self.last_name = last_name
         self.phone = phone
         self.email = email
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
     def set_password(self, password):
         """Create hashed password."""
@@ -29,6 +34,11 @@ class User(db.Model):
     def check_password(self, password):
         """Check hashed password."""
         return check_password_hash(self.passwd, password)
+
+# create db schema class
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'first_name', 'last_name', 'phone', 'email')
 
 class Subjects(db.Model):
     #__tablename__ = 'subjects'
@@ -53,6 +63,21 @@ class Subjects(db.Model):
     grade_subject_9 = db.Column(db.String(10))
     application = db.relationship('Applications', backref='subjects', lazy=True)
 
+    def __init__(self, subject_1, subject_2, subject_3, subject_4, subject_5, subject_6, subject_7, subject_8, subject_9):
+        self.subject_1 = subject_1
+        self.subject_2 = subject_2
+        self.subject_3 = subject_3
+        self.subject_4 = subject_4
+        self.subject_5 = subject_5
+        self.subject_6 = subject_6
+        self.subject_7 = subject_7
+        self.subject_8 = subject_8
+        self.subject_9 = subject_9
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
 class Biodata(db.Model):
     #__tablename__ = 'biodata'
     id = db.Column(db.Integer, primary_key = True)
@@ -62,6 +87,10 @@ class Biodata(db.Model):
     student_country = db.Column(db.String(80))
     student_pic = db.Column(db.String(80))
     application = db.relationship('Applications', backref='biodata', lazy=True)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Applications(db.Model):
     #__tablename__ = 'applications'
@@ -76,4 +105,16 @@ class Applications(db.Model):
     user_id= db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     subjects_id= db.Column(db.Integer, db.ForeignKey('subjects.id'), nullable=False)
     biodata_id = db.Column(db.Integer, db.ForeignKey('biodata.id'), nullable=False)
+
+    def __init__(self, app_grade, app_year, paid_status, user_id, subjects_id, biodata_id):
+        self.app_grade = app_grade
+        self.app_year = app_year
+        self.paid_status = paid_status
+        self.user_id = user_id
+        self.subjects_id = subjects_id
+        self.biodata_id = biodata_id
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
     

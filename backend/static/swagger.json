@@ -1,0 +1,361 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.",
+    "version": "1.0.0",
+    "title": "Swagger School Portal Application"
+  },
+  "host": "backenddev-test.herokuapp.com",
+  "tags": [
+    {
+      "name": "applications",
+      "description": "Access to SPA applications"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Add a new application",
+        "description": "",
+        "operationId": "addApp",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "application register that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "grade_choice",
+                "year_choice",
+                "subjects"
+              ],
+              "properties": {
+                "grade_choice": {
+                  "type": "string",
+                  "example": "9th grade"
+                },
+                "year_choice": {
+                  "type": "string",
+                  "example": "2022-2023"
+                },
+                "subjects": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "Mathematics",
+                    "Algebra",
+                    "Geometry",
+                    "Science",
+                    "Biology",
+                    "Physics",
+                    "Chemistry",
+                    "Geography",
+                    "History"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "passwd"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "passwd": {
+                  "type": "string",
+                  "format": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successfully"
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logout successfully"
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "schema": {
+              "type": "object",
+              "required": [
+                "first_name",
+                "last_name",
+                "phone",
+                "email",
+                "passwd"
+              ],
+              "properties": {
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "+966xxxxxxxxx"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email"
+                },
+                "passwd": {
+                  "type": "string",
+                  "format": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user was successfully registered"
+          },
+          "400": {
+            "description": "Email already taken"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "uniqueItems": true
+        },
+        "entrance_exam_date": {
+          "type": "string",
+          "default": null
+        },
+        "passwd": {
+          "type": "string",
+          "format": "password"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Subjects": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "subject_1": {
+          "type": "string"
+        },
+        "subject_2": {
+          "type": "string"
+        },
+        "subject_3": {
+          "type": "string"
+        },
+        "subject_4": {
+          "type": "string"
+        },
+        "subject_5": {
+          "type": "string"
+        },
+        "subject_6": {
+          "type": "string"
+        },
+        "subject_7": {
+          "type": "string"
+        },
+        "subject_8": {
+          "type": "string"
+        },
+        "subject_9": {
+          "type": "string"
+        },
+        "grade_subject_1": {
+          "type": "string"
+        },
+        "grade_subject_2": {
+          "type": "string"
+        },
+        "grade_subject_3": {
+          "type": "string"
+        },
+        "grade_subject_4": {
+          "type": "string"
+        },
+        "grade_subject_5": {
+          "type": "string"
+        },
+        "grade_subject_6": {
+          "type": "string"
+        },
+        "grade_subject_7": {
+          "type": "string"
+        },
+        "grade_subject_8": {
+          "type": "string"
+        },
+        "grade_subject_9": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Subjects"
+      }
+    },
+    "Biodata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "student_name": {
+          "type": "string"
+        },
+        "student_gender": {
+          "type": "string"
+        },
+        "student_birth": {
+          "type": "string"
+        },
+        "student_country": {
+          "type": "string"
+        },
+        "student_pic": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Biodata"
+      }
+    },
+    "Applications": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "app_grade": {
+          "type": "string"
+        },
+        "app_year": {
+          "type": "string"
+        },
+        "paid_status": {
+          "type": "integer"
+        },
+        "app_status": {
+          "type": "integer"
+        },
+        "subjects_status": {
+          "type": "integer"
+        },
+        "biodata_status": {
+          "type": "integer"
+        },
+        "app_result": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "subjects": {
+          "$ref": "#/definitions/Subjects"
+        },
+        "biodata": {
+          "$ref": "#/definitions/Biodata"
+        }
+      },
+      "xml": {
+        "name": "Applications"
+      }
+    }
+  }
+}
